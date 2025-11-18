@@ -1,0 +1,51 @@
+name: Update Tailwind CSS
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tailwind CSS version (e.g., v4.1.2). Leave empty for latest.'
+        required: false
+        type: string
+  schedule:
+    # Run weekly on Sundays at 2am UTC to check for new releases
+    - cron: '0 2 * * 0'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Download binaries and create tag
+        id: update
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          chmod +x scripts/update-and-tag.sh
+          ./scripts/update-and-tag.sh
+
+      - name: Create GitHub release with binaries
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          chmod +x scripts/create-release.sh
+          ./scripts/create-release.sh
+
+      - name: Push changes and tags
+        run: |
+          git push davesnx --all
+          git push davesnx --tags
+
