@@ -46,6 +46,6 @@ jobs:
 
       - name: Push changes and tags
         run: |
-          git push davesnx --all
-          git push davesnx --tags
+          git push origin --all
+          git push origin --tags
 

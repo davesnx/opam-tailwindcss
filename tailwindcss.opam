@@ -8,6 +8,7 @@ homepage: "https://github.com/davesnx/opam-tailwindcss"
 doc: "https://tmattio.github.io/opam-tailwindcss/"
 bug-reports: "https://github.com/davesnx/opam-tailwindcss/issues"
 dev-repo: "git+https://github.com/davesnx/opam-tailwindcss.git"
+x-build-with-network: true
 depexts: [
   "curl"
 ]

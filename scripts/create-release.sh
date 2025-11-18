@@ -25,9 +25,11 @@ echo "Creating release for Tailwind CSS version: $tag_name"
 semver="${tag_name#v}"
 
 # Get the repository name (owner/repo) from git remote
-repo_url=$(git remote get-url davesnx 2>/dev/null || git remote get-url origin)
+# Use REMOTE_NAME env var if set, otherwise default to origin
+remote_name="${REMOTE_NAME:-origin}"
+repo_url=$(git remote get-url "$remote_name")
 repo_name=$(echo "$repo_url" | sed 's/.*github.com[:/]\(.*\)\.git$/\1/' | sed 's/.*github.com[:/]\(.*\)$/\1/')
-echo "Using repository: $repo_name"
+echo "Using repository: $repo_name (remote: $remote_name)"
 
 # Check if this release already exists
 if gh release view "$semver" --repo "$repo_name" >/dev/null 2>&1; then
