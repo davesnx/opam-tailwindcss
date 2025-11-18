@@ -1,5 +1,5 @@
 opam-version: "2.0"
-synopsis: "Tailwind CSS standalone CLcommand line on opam"
+synopsis: "Tailwind CSS standalone CLI on opam"
 description: """Tailwind CSS standalone CLI on opam."""
 maintainer: ["David Sancho"]
 authors: ["David Sancho"]
@@ -8,43 +8,44 @@ homepage: "https://github.com/davesnx/opam-tailwindcss"
 doc: "https://tmattio.github.io/opam-tailwindcss/"
 bug-reports: "https://github.com/davesnx/opam-tailwindcss/issues"
 dev-repo: "git+https://github.com/davesnx/opam-tailwindcss.git"
-x-build-with-network: true
-depexts: [
-  "curl"
-]
+extra-source "tailwindcss-linux-arm64" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-arm64"
+  checksum: []
+}
+extra-source "tailwindcss-linux-x64" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-x64"
+  checksum: []
+}
+extra-source "tailwindcss-macos-arm64" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-arm64"
+  checksum: []
+}
+extra-source "tailwindcss-macos-x64" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-x64"
+  checksum: []
+}
+extra-source "tailwindcss-windows-x64.exe" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-x64.exe"
+  checksum: []
+}
+extra-source "tailwindcss-windows-arm64.exe" {
+  src: "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-arm64.exe"
+  checksum: []
+}
 build: [
-  ["mkdir" "-p" "bin"]
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-linux-arm64"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-arm64"]
-   {os = "linux" & arch = "arm64"}
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-linux-x64"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-x64"]
-   {os = "linux" & arch = "x86_64"}
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-macos-arm64"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-arm64"]
-   {os = "macos" & arch = "arm64"}
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-macos-x64"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-x64"]
-   {os = "macos" & arch = "x86_64"}
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-windows-x64.exe"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-x64.exe"]
-   {os = "win32" & arch = "x86_64"}
-  ["curl" "-f" "-L" "-o" "bin/tailwindcss-windows-arm64.exe"
-   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-arm64.exe"]
-   {os = "win32" & arch = "arm64"}
-  ["chmod" "+x" "bin/tailwindcss-linux-arm64"] {os = "linux" & arch = "arm64"}
-  ["chmod" "+x" "bin/tailwindcss-linux-x64"] {os = "linux" & arch = "x86_64"}
-  ["chmod" "+x" "bin/tailwindcss-macos-arm64"] {os = "macos" & arch = "arm64"}
-  ["chmod" "+x" "bin/tailwindcss-macos-x64"] {os = "macos" & arch = "x86_64"}
+  ["chmod" "+x" "tailwindcss-linux-arm64"] {os = "linux" & arch = "arm64"}
+  ["chmod" "+x" "tailwindcss-linux-x64"] {os = "linux" & arch = "x86_64"}
+  ["chmod" "+x" "tailwindcss-macos-arm64"] {os = "macos" & arch = "arm64"}
+  ["chmod" "+x" "tailwindcss-macos-x64"] {os = "macos" & arch = "x86_64"}
 ]
 install: [
   "cp"
-  "bin/tailwindcss-linux-arm64" {os = "linux" & arch = "arm64"}
-  "bin/tailwindcss-linux-x64" {os = "linux" & arch = "x86_64"}
-  "bin/tailwindcss-macos-arm64" {os = "macos" & arch = "arm64"}
-  "bin/tailwindcss-macos-x64" {os = "macos" & arch = "x86_64"}
-  "bin/tailwindcss-windows-arm64.exe" {os = "win32" & arch = "arm64"}
-  "bin/tailwindcss-windows-x64.exe" {os = "win32" & arch = "x86_64"}
+  "tailwindcss-linux-arm64" {os = "linux" & arch = "arm64"}
+  "tailwindcss-linux-x64" {os = "linux" & arch = "x86_64"}
+  "tailwindcss-macos-arm64" {os = "macos" & arch = "arm64"}
+  "tailwindcss-macos-x64" {os = "macos" & arch = "x86_64"}
+  "tailwindcss-windows-arm64.exe" {os = "win32" & arch = "arm64"}
+  "tailwindcss-windows-x64.exe" {os = "win32" & arch = "x86_64"}
   "%{bin}%/tailwindcss" {os != "win32"}
   "%{bin}%/tailwindcss.exe" {os = "win32"}
 ]
