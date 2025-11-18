@@ -9,6 +9,105 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Nothing yet!
 
+## [4.1.10] - 2025-06-11
+
+### Fixed
+
+- Fix incorrectly generated CSS when using percentages in arbitrary values with calc, e.g.: `w-[calc(100%-var(--offset))]` ([#18289](https://github.com/tailwindlabs/tailwindcss/pull/18289))
+
+## [4.1.9] - 2025-06-11
+
+### Fixed
+
+- Correctly parse custom properties with strings containing semicolons ([#18251](https://github.com/tailwindlabs/tailwindcss/pull/18251))
+- Upgrade: Migrate arbitrary modifiers without percentage signs to bare values (e.g. `/[0.16]` → `/16`) ([#18184](https://github.com/tailwindlabs/tailwindcss/pull/18184))
+- Upgrade: Migrate CSS variable shorthands where fallback value contains function call ([#18184](https://github.com/tailwindlabs/tailwindcss/pull/18184))
+- Upgrade: Migrate negative arbitrary values to negative bare values (e.g. `mb-[-32rem]` → `-mb-128`) ([#18212](https://github.com/tailwindlabs/tailwindcss/pull/18212))
+- Upgrade: Do not migrate `blur` in `wire:model.blur` ([#18216](https://github.com/tailwindlabs/tailwindcss/pull/18216))
+- Don't add spaces around CSS dashed idents when formatting math expressions ([#18220](https://github.com/tailwindlabs/tailwindcss/pull/18220))
+
+## [4.1.8] - 2025-05-27
+
+### Added
+
+- Improve error messages when `@apply` fails ([#18059](https://github.com/tailwindlabs/tailwindcss/pull/18059))
+
+### Fixed
+
+- Upgrade: Do not migrate declarations that look like candidates in `<style>` blocks ([#18057](https://github.com/tailwindlabs/tailwindcss/pull/18057), [18068](https://github.com/tailwindlabs/tailwindcss/pull/18068))
+- Upgrade: Don't error when looking for `tailwindcss` in pnpm monorepos ([#18065](https://github.com/tailwindlabs/tailwindcss/pull/18065))
+- Upgrade: Don't error when updating dependencies in pnpm monorepos ([#18065](https://github.com/tailwindlabs/tailwindcss/pull/18065))
+- Upgrade: Migrate deprecated `order-none` to `order-0` ([#18126](https://github.com/tailwindlabs/tailwindcss/pull/18126))
+- Support Leptos `class:` attributes when extracting classes ([#18093](https://github.com/tailwindlabs/tailwindcss/pull/18093))
+- Fix "Cannot read properties of undefined" crash on malformed arbitrary value ([#18133](https://github.com/tailwindlabs/tailwindcss/pull/18133))
+- Upgrade: Migrate `-mt-[0px]` to `mt-[0px]` instead of the other way around ([#18154](https://github.com/tailwindlabs/tailwindcss/pull/18154))
+- Fix Haml pre-processing crash when there is no `\n` at the end of the file ([#18155](https://github.com/tailwindlabs/tailwindcss/pull/18155))
+- Ignore `.pnpm-store` folders by default (can be overridden by `@source …` rules) ([#18163](https://github.com/tailwindlabs/tailwindcss/pull/18163))
+- Fix PostCSS crash when calling `toJSON()` ([#18083](https://github.com/tailwindlabs/tailwindcss/pull/18083))
+
+## [4.1.7] - 2025-05-15
+
+### Added
+
+- Upgrade: Migrate bare values to named values ([#18000](https://github.com/tailwindlabs/tailwindcss/pull/18000))
+- Upgrade: Added cache to improve template migration performance ([#18025](https://github.com/tailwindlabs/tailwindcss/pull/18025))
+
+### Fixed
+
+- Allow `_` before numbers during candidate extraction ([#17961](https://github.com/tailwindlabs/tailwindcss/pull/17961))
+- Prevent duplicate suggestions when using `@theme` and `@utility` together ([#17675](https://github.com/tailwindlabs/tailwindcss/pull/17675))
+- Ensure that media queries within `::before` and `::after` pseudo selectors create valid CSS rules in production builds ([#17979](https://github.com/tailwindlabs/tailwindcss/pull/17979))
+- Ensure that the standalone CLI does not leave temporary files behind ([#17981](https://github.com/tailwindlabs/tailwindcss/pull/17981))
+- Ensure `-rotate-*` utilities properly negate arbitrary values ([#18014](https://github.com/tailwindlabs/tailwindcss/pull/18014))
+- Ignore custom variants using `:merge(…)` selectors in legacy JS plugins ([#18020](https://github.com/tailwindlabs/tailwindcss/pull/18020))
+- Ensure classes containing `.` are properly extracted from Clojure files ([#18038](https://github.com/tailwindlabs/tailwindcss/pull/18038))
+- Upgrade: Fix error when using `@import … source(…)` ([#17963](https://github.com/tailwindlabs/tailwindcss/pull/17963))
+- Upgrade: Change casing of utilities with named values to kebab-case to match updated theme variables ([#18017](https://github.com/tailwindlabs/tailwindcss/pull/18017))
+- Upgrade: Don't migrate strings that match utility names in Vue attribute bindings other than `class` ([#18025](https://github.com/tailwindlabs/tailwindcss/pull/18025))
+
+## [4.1.6] - 2025-05-09
+
+### Added
+
+- Upgrade: Automatically convert arbitrary values to named values when possible (e.g. `h-[1lh]` to `h-lh`) ([#17831](https://github.com/tailwindlabs/tailwindcss/pull/17831), [#17854](https://github.com/tailwindlabs/tailwindcss/pull/17854))
+- Upgrade: Update dependencies in parallel for improved performance ([#17898](https://github.com/tailwindlabs/tailwindcss/pull/17898))
+- Add detailed logging about `@source` directives, discovered files and scanned files when using `DEBUG=*` ([#17906](https://github.com/tailwindlabs/tailwindcss/pull/17906), [#17952](https://github.com/tailwindlabs/tailwindcss/pull/17952))
+- Add support for generating source maps in development ([#17775](https://github.com/tailwindlabs/tailwindcss/pull/17775))
+
+### Fixed
+
+- Ensure negative arbitrary `scale` values generate negative values ([#17831](https://github.com/tailwindlabs/tailwindcss/pull/17831))
+- Fix HAML extraction with embedded Ruby ([#17846](https://github.com/tailwindlabs/tailwindcss/pull/17846))
+- Don't scan files for utilities when using `@reference` ([#17836](https://github.com/tailwindlabs/tailwindcss/pull/17836))
+- Fix incorrectly replacing `_` with ` ` in arbitrary modifier shorthand `bg-red-500/(--my_opacity)` ([#17889](https://github.com/tailwindlabs/tailwindcss/pull/17889))
+- Don't scan `.log` files for classes by default ([#17906](https://github.com/tailwindlabs/tailwindcss/pull/17906))
+- Ensure that custom utilities applying other custom utilities don't swallow nested `@apply` rules ([#17925](https://github.com/tailwindlabs/tailwindcss/pull/17925))
+- Download platform specific package if `optionalDependencies` are skipped ([#17929](https://github.com/tailwindlabs/tailwindcss/pull/17929))
+
+## [4.1.5] - 2025-04-30
+
+### Added
+
+- Support using `@tailwindcss/upgrade` to upgrade between versions of v4.\* ([#17717](https://github.com/tailwindlabs/tailwindcss/pull/17717))
+- Add `h-lh` / `min-h-lh` / `max-h-lh` utilities ([#17790](https://github.com/tailwindlabs/tailwindcss/pull/17790))
+- Transition `display`, `visibility`, `content-visibility`, `overlay`, and `pointer-events` when using `transition` to simplify `@starting-style` usage ([#17812](https://github.com/tailwindlabs/tailwindcss/pull/17812))
+
+### Fixed
+
+- Don't scan `.geojson` or `.db` files for classes by default ([#17700](https://github.com/tailwindlabs/tailwindcss/pull/17700), [#17711](https://github.com/tailwindlabs/tailwindcss/pull/17711))
+- Hide default shadow suggestions when missing default shadow theme keys ([#17743](https://github.com/tailwindlabs/tailwindcss/pull/17743))
+- Replace `_` with `.` in theme suggestions for `@utility` if surrounded by digits ([#17733](https://github.com/tailwindlabs/tailwindcss/pull/17733))
+- Skip `color-mix(…)` when opacity is `100%` ([#17815](https://github.com/tailwindlabs/tailwindcss/pull/17815))
+- PostCSS: Ensure that errors in imported stylesheets are recoverable ([#17754](https://github.com/tailwindlabs/tailwindcss/pull/17754))
+- Upgrade: Bump all Tailwind CSS related dependencies during upgrade ([#17763](https://github.com/tailwindlabs/tailwindcss/pull/17763))
+- Upgrade: Don't add `-` to variants starting with `@` ([#17814](https://github.com/tailwindlabs/tailwindcss/pull/17814))
+- Upgrade: Don't format stylesheets that didn't change when upgrading ([#17824](https://github.com/tailwindlabs/tailwindcss/pull/17824))
+
+### Changed
+
+- Ignore `.hg`, `.svn`, `.venv`, `venv`, `.yarn`, `.next`, `.turbo`, `.parcel-cache`, `__pycache__`, and `.svelte-kit` folders by default (can be overridden by `@source …` rules) ([#17892](https://github.com/tailwindlabs/tailwindcss/pull/17892))
+- `@source` rules that point inside `.hg`, `.svn`, `.venv`, `venv`, `.yarn`, `.next`, `.turbo`, `.parcel-cache`, `__pycache__`, and `.svelte-kit` folders no longer consider your `.gitignore` rules ([#17892](https://github.com/tailwindlabs/tailwindcss/pull/17892))
+
 ## [4.1.4] - 2025-04-14
 
 ### Added
@@ -3658,7 +3757,13 @@ No release notes
 
 - Everything!
 
-[unreleased]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.4...HEAD
+[unreleased]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.10...HEAD
+[4.1.10]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.9...v4.1.10
+[4.1.9]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.8...v4.1.9
+[4.1.8]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.7...v4.1.8
+[4.1.7]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.6...v4.1.7
+[4.1.6]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.5...v4.1.6
+[4.1.5]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.4...v4.1.5
 [4.1.4]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.3...v4.1.4
 [4.1.3]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.2...v4.1.3
 [4.1.2]: https://github.com/tailwindlabs/tailwindcss/compare/v4.1.1...v4.1.2
