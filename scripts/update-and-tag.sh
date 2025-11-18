@@ -80,16 +80,18 @@ curl -f -L "https://raw.githubusercontent.com/tailwindlabs/tailwindcss/$tag_name
     echo "Warning: Could not download CHANGELOG, keeping existing"
 }
 
-# Commit binaries and CHANGES.md
-echo "Committing binaries and changelog..."
-git add -f bin/tailwindcss-* CHANGES.md 2>/dev/null
-git commit -m "Release Tailwind CSS $tag_name" || {
-    echo "No changes to commit"
-}
+# Commit only CHANGES.md (binaries are gitignored)
+if git diff --quiet CHANGES.md 2>/dev/null && ! git ls-files --others --exclude-standard | grep -q "^CHANGES.md$"; then
+    echo "No changes to CHANGES.md"
+else
+    git add CHANGES.md
+    git commit -m "Update changelog for Tailwind CSS $tag_name" || true
+fi
 
 # Create annotated tag
 git tag -a "$semver" -m "Tailwind CSS $tag_name"
 
-echo "Successfully created tag: $semver (with binaries)"
+echo "Successfully created tag: $semver"
+echo "Binaries downloaded to /bin/ (not committed - too large for git)"
 echo "tag_version=$semver" >> $GITHUB_OUTPUT 2>/dev/null || true
 
