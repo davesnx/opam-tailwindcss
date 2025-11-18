@@ -8,7 +8,9 @@ homepage: "https://github.com/davesnx/opam-tailwindcss"
 doc: "https://tmattio.github.io/opam-tailwindcss/"
 bug-reports: "https://github.com/davesnx/opam-tailwindcss/issues"
 dev-repo: "git+https://github.com/davesnx/opam-tailwindcss.git"
-depends: ["conf-curl"]
+depexts: [
+  "curl"
+]
 build: [
   ["mkdir" "-p" "bin"]
   ["curl" "-f" "-L" "-o" "bin/tailwindcss-linux-arm64"
