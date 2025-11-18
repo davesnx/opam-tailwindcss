@@ -1,8 +1,8 @@
 opam-version: "2.0"
-synopsis: "TailwindCSS prebuild command line on opam"
-description: """TailwindCSS prebuild command line on opam."""
-maintainer: ["Thibaut Mattio"]
-authors: ["Thibaut Mattio"]
+synopsis: "Tailwind CSS standalone CLcommand line on opam"
+description: """Tailwind CSS standalone CLI on opam."""
+maintainer: ["David Sancho"]
+authors: ["David Sancho"]
 license: "ISC"
 homepage: "https://github.com/davesnx/opam-tailwindcss"
 doc: "https://tmattio.github.io/opam-tailwindcss/"
