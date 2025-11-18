@@ -55,15 +55,21 @@ See upstream release: https://github.com/tailwindlabs/tailwindcss/releases/tag/$
 fi
 
 echo ""
-echo "Creating GitHub release $semver with binaries from /bin/..."
+echo "Creating tarball with all binaries..."
 
-# Create the release with binaries from /bin/ directory
+# Create a tarball with all binaries in a bin/ directory structure
+tar_name="tailwindcss-$semver.tar.gz"
+tar czf "$tar_name" -C . bin/
+
+echo "Creating GitHub release $semver with binaries and tarball..."
+
+# Create the release with individual binaries AND the tarball
 if [ -n "$release_notes" ]; then
     gh release create "$semver" \
         --repo "$repo_name" \
         --title "Tailwind CSS $tag_name" \
         --notes "$release_notes" \
-        bin/tailwindcss-* || {
+        bin/tailwindcss-* "$tar_name" || {
         echo "Error: Failed to create release"
         exit 1
     }
@@ -72,7 +78,7 @@ else
         --repo "$repo_name" \
         --title "Tailwind CSS $tag_name" \
         --notes "Tailwind CSS $tag_name" \
-        bin/tailwindcss-* || {
+        bin/tailwindcss-* "$tar_name" || {
         echo "Error: Failed to create release"
         exit 1
     }
@@ -80,5 +86,6 @@ fi
 
 echo "Successfully created release: $semver"
 echo "Release URL: https://github.com/$repo_name/releases/tag/$semver"
+echo "Tarball: $tar_name"
 echo "release_created=$semver" >> $GITHUB_OUTPUT 2>/dev/null || true
 
