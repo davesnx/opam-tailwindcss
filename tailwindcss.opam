@@ -4,11 +4,36 @@ description: """TailwindCSS prebuild command line on opam."""
 maintainer: ["Thibaut Mattio"]
 authors: ["Thibaut Mattio"]
 license: "ISC"
-homepage: "https://github.com/tmattio/opam-tailwindcss"
+homepage: "https://github.com/davesnx/opam-tailwindcss"
 doc: "https://tmattio.github.io/opam-tailwindcss/"
-bug-reports: "https://github.com/tmattio/opam-tailwindcss/issues"
-dev-repo: "git+https://github.com/tmattio/opam-tailwindcss.git"
-build: []
+bug-reports: "https://github.com/davesnx/opam-tailwindcss/issues"
+dev-repo: "git+https://github.com/davesnx/opam-tailwindcss.git"
+depends: ["conf-curl"]
+build: [
+  ["mkdir" "-p" "bin"]
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-linux-arm64" 
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-arm64"]
+   {os = "linux" & arch = "arm64"}
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-linux-x64"
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-linux-x64"]
+   {os = "linux" & arch = "x86_64"}
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-macos-arm64"
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-arm64"]
+   {os = "macos" & arch = "arm64"}
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-macos-x64"
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-macos-x64"]
+   {os = "macos" & arch = "x86_64"}
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-windows-x64.exe"
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-x64.exe"]
+   {os = "win32" & arch = "x86_64"}
+  ["curl" "-f" "-L" "-o" "bin/tailwindcss-windows-arm64.exe"
+   "https://github.com/davesnx/opam-tailwindcss/releases/download/%{version}%/tailwindcss-windows-arm64.exe"]
+   {os = "win32" & arch = "arm64"}
+  ["chmod" "+x" "bin/tailwindcss-linux-arm64"] {os = "linux" & arch = "arm64"}
+  ["chmod" "+x" "bin/tailwindcss-linux-x64"] {os = "linux" & arch = "x86_64"}
+  ["chmod" "+x" "bin/tailwindcss-macos-arm64"] {os = "macos" & arch = "arm64"}
+  ["chmod" "+x" "bin/tailwindcss-macos-x64"] {os = "macos" & arch = "x86_64"}
+]
 install: [
   "cp"
   "bin/tailwindcss-linux-arm64" {os = "linux" & arch = "arm64"}
